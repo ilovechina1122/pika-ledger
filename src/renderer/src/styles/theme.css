@@ -1,0 +1,57 @@
+/* 皮卡记账主题色板：皮卡狗狗主题风（暖黄米白、圆润可爱） */
+:root {
+  /* 品牌色 */
+  --pika-yellow: #f6c445;
+  --pika-cream: #fff8ea;
+  --pika-card: #fffdf6;
+  --pika-ink: #3d2e1e;
+  --pika-muted: #a0978a;
+  --pika-hairline: #e8e2d3;
+  --pika-expense: #e35d48;
+  --pika-income: #4e9e6a;
+  --pika-radius: 20px;
+  --pika-shadow: 0 2px 12px rgba(61, 46, 30, 0.06);
+
+  /* Element Plus 主题对齐（暖棕黄） */
+  --el-color-primary: #e0a83c;
+  --el-color-primary-light-3: #e9be6a;
+  --el-color-primary-light-5: #f0d096;
+  --el-color-primary-light-7: #f7e3bf;
+  --el-color-primary-light-8: #faecd3;
+  --el-color-primary-light-9: #fdf5e6;
+  --el-color-primary-dark-2: #b3862a;
+  --el-border-radius-base: 12px;
+  --el-border-radius-small: 10px;
+  --el-border-radius-round: 999px;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  color: var(--pika-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 页面通用骨架 */
+.view {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.view-title {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.view-desc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--pika-muted);
+}
