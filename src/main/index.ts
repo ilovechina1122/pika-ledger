@@ -1,9 +1,15 @@
 import { app, shell, BrowserWindow, Menu, type MenuItemConstructorOptions } from 'electron'
 import { join } from 'path'
+import { initDb, closeDb } from './db/connection'
+import { registerAllIpcHandlers } from './ipc'
 
 const isDev = !app.isPackaged
 
-// 单实例锁：防止同时开两个窗口写坏数据（数据功能在 M2 加入，锁现在就位）
+// 统一数据目录：开发版与安装版使用同一位置（避免数据分裂），
+// 固定在英文路径（AppData/pika-ledger），与项目文件夹无关
+app.setPath('userData', join(app.getPath('appData'), 'pika-ledger'))
+
+// 单实例锁：防止同时开两个窗口写坏数据
 const gotLock = app.requestSingleInstanceLock()
 
 if (!gotLock) {
@@ -17,7 +23,7 @@ if (!gotLock) {
     }
   })
 
-  app.whenReady().then(() => {
+  app.whenReady().then(async () => {
     // 简单的中文菜单（保留复制/粘贴等常用快捷键）
     const template: MenuItemConstructorOptions[] = [
       {
@@ -42,11 +48,17 @@ if (!gotLock) {
     ]
     Menu.setApplicationMenu(Menu.buildFromTemplate(template))
 
+    await initDb()
+    registerAllIpcHandlers()
     createWindow()
 
     app.on('activate', () => {
       if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
+  })
+
+  app.on('before-quit', () => {
+    closeDb()
   })
 
   app.on('window-all-closed', () => {

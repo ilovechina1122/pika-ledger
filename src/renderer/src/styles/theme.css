@@ -38,6 +38,27 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* 通用主按钮（深棕底 + 米白字，圆润） */
+.pika-btn {
+  padding: 9px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pika-card);
+  background: var(--pika-ink);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.pika-btn:hover {
+  opacity: 0.85;
+}
+
+.pika-btn:active {
+  opacity: 0.7;
+}
+
 /* 页面通用骨架 */
 .view {
   max-width: 860px;
