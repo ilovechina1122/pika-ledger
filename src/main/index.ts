@@ -77,7 +77,7 @@ function createWindow(): void {
     minWidth: 940,
     minHeight: 640,
     show: false,
-    backgroundColor: '#FFF8EA',
+    backgroundColor: '#FAF7F0',
     autoHideMenuBar: true,
     title: '多宝记账',
     webPreferences: {

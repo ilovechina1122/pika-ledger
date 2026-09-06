@@ -63,15 +63,15 @@ const option = computed<PieOption>(() => {
       left: 'center',
       icon: 'circle',
       itemWidth: 10,
-      textStyle: { color: '#3d2e1e', fontSize: 12 }
+      textStyle: { color: '#2b2724', fontSize: 12 }
     },
     series: [
       {
         type: 'pie',
         radius: ['42%', '68%'],
         center: ['50%', '40%'],
-        itemStyle: { borderColor: '#fffdf6', borderWidth: 2, borderRadius: 6 },
-        label: { formatter: '{b}\n{d}%', color: '#a0978a', fontSize: 11 },
+        itemStyle: { borderColor: '#fffdf9', borderWidth: 2, borderRadius: 6 },
+        label: { formatter: '{b}\n{d}%', color: '#a49a8c', fontSize: 11 },
         labelLine: { length: 10, length2: 8 },
         data
       }
