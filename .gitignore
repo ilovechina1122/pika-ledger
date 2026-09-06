@@ -5,3 +5,7 @@ auto-imports.d.ts
 components.d.ts
 *.log
 .DS_Store
+
+# 多宝的照片等本地素材（仓库是公开的，不上传个人照片）
+*.jpg
+icon-candidate-*.png
