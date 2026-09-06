@@ -21,7 +21,7 @@ export async function initDb(): Promise<void> {
   runMigrations(db)
   seedBuiltinCategories(db)
   const categoryCount = (db.prepare('SELECT COUNT(*) AS n FROM categories').get() as { n: number }).n
-  console.log(`[皮卡记账] 数据库就绪: ${dbPath}（分类 ${categoryCount} 个）`)
+  console.log(`[多宝记账] 数据库就绪: ${dbPath}（分类 ${categoryCount} 个）`)
   await backupDaily(db)
 }
 

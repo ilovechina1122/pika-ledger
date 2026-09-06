@@ -1,7 +1,7 @@
 {
   "name": "pika-ledger",
   "version": "1.0.0",
-  "description": "皮卡记账 - 个人桌面记账应用",
+  "description": "多宝记账 - 个人桌面记账应用",
   "main": "./out/main/index.js",
   "private": true,
   "scripts": {
