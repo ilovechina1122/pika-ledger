@@ -27,8 +27,8 @@ const api: PikaApi = {
   },
   stats: {
     monthSummary: (month: string) => ipcRenderer.invoke(IPC.statsMonthSummary, month),
-    categoryBreakdown: (month: string, type: TxType, topLevelOnly?: boolean) =>
-      ipcRenderer.invoke(IPC.statsCategoryBreakdown, month, type, topLevelOnly),
+    categoryBreakdown: (month: string, type: TxType, parentId?: number | null) =>
+      ipcRenderer.invoke(IPC.statsCategoryBreakdown, month, type, parentId ?? null),
     dailySeries: (month: string) => ipcRenderer.invoke(IPC.statsDailySeries, month),
     monthlyTrend: (fromMonth: string, toMonth: string) =>
       ipcRenderer.invoke(IPC.statsMonthlyTrend, fromMonth, toMonth)
@@ -36,9 +36,6 @@ const api: PikaApi = {
   app: {
     getInfo: () => ipcRenderer.invoke(IPC.appGetInfo),
     openDataFolder: () => ipcRenderer.invoke(IPC.appOpenDataFolder)
-  },
-  dev: {
-    seedTestData: () => ipcRenderer.invoke(IPC.devSeedTestData)
   }
 }
 

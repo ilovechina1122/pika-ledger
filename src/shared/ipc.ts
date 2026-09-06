@@ -16,8 +16,7 @@ export const IPC = {
   statsDailySeries: 'stats:dailySeries',
   statsMonthlyTrend: 'stats:monthlyTrend',
   appGetInfo: 'app:getInfo',
-  appOpenDataFolder: 'app:openDataFolder',
-  devSeedTestData: 'dev:seedTestData'
+  appOpenDataFolder: 'app:openDataFolder'
 } as const
 
 // 各通道的请求/响应类型
@@ -106,7 +105,7 @@ export interface PikaApi {
     categoryBreakdown(
       month: string,
       type: TxType,
-      topLevelOnly?: boolean
+      parentId?: number | null
     ): Promise<ApiResult<CategoryBreakdownRow[]>>
     dailySeries(month: string): Promise<ApiResult<DaySeriesRow[]>>
     monthlyTrend(fromMonth: string, toMonth: string): Promise<ApiResult<MonthTrendRow[]>>
@@ -114,8 +113,5 @@ export interface PikaApi {
   app: {
     getInfo(): Promise<ApiResult<AppInfo>>
     openDataFolder(): Promise<ApiResult<null>>
-  }
-  dev: {
-    seedTestData(): Promise<ApiResult<null>>
   }
 }
