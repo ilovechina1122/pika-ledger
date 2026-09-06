@@ -1,5 +1,5 @@
 appId: com.pika.ledger
-productName: 皮卡记账
+productName: 多宝记账
 directories:
   buildResources: build
   output: dist
@@ -21,7 +21,7 @@ nsis:
   allowToChangeInstallationDirectory: true
   installerLanguages:
     - zh_CN
-  shortcutName: 皮卡记账
+  shortcutName: 多宝记账
   artifactName: pika-ledger-${version}-setup.${ext}
 mac:
   target:

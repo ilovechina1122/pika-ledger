@@ -13,7 +13,7 @@ const navItems = [
       <div class="logo">
         <div class="logo-badge">🐕</div>
         <div class="logo-text">
-          <div class="logo-name">皮卡记账</div>
+          <div class="logo-name">多宝记账</div>
           <div class="logo-sub">每一笔，都算数</div>
         </div>
       </div>
@@ -31,7 +31,7 @@ const navItems = [
         </router-link>
       </nav>
 
-      <div class="sidebar-footer">🐾 和皮卡一起记账</div>
+      <div class="sidebar-footer">🐾 和多宝一起记账</div>
     </aside>
 
     <main class="content">

@@ -1,4 +1,4 @@
-# 开发辅助脚本：彻底清理皮卡记账的 dev 进程树（electron.exe + 项目相关 node.exe）
+# 开发辅助脚本：彻底清理多宝记账的 dev 进程树（electron.exe + 项目相关 node.exe）
 # 用法（项目根目录）：powershell -ExecutionPolicy Bypass -File scripts/dev-restart.ps1
 $ErrorActionPreference = 'SilentlyContinue'
 

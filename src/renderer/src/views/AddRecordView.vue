@@ -100,7 +100,7 @@ async function save(): Promise<void> {
             v-model="note"
             class="note-input"
             type="text"
-            placeholder="比如：给皮卡买狗粮"
+            placeholder="比如：给多宝买狗粮"
             maxlength="50"
           />
         </div>

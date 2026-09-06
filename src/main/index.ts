@@ -79,7 +79,7 @@ function createWindow(): void {
     show: false,
     backgroundColor: '#FFF8EA',
     autoHideMenuBar: true,
-    title: '皮卡记账',
+    title: '多宝记账',
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       contextIsolation: true,
