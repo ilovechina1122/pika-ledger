@@ -59,6 +59,17 @@ body {
   opacity: 0.7;
 }
 
+.pika-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 大号按钮（主要操作） */
+.pika-btn-lg {
+  padding: 13px 44px;
+  font-size: 16px;
+}
+
 /* 页面通用骨架 */
 .view {
   max-width: 860px;
