@@ -43,20 +43,20 @@ const option = computed<BarOption>(() => {
       data: ['支出', '收入'],
       icon: 'circle',
       itemWidth: 10,
-      textStyle: { color: '#3d2e1e', fontSize: 12 }
+      textStyle: { color: '#2b2724', fontSize: 12 }
     },
     grid: { left: 8, right: 8, top: 36, bottom: 0, containLabel: true },
     xAxis: {
       type: 'category',
       data: labels,
       axisTick: { show: false },
-      axisLine: { lineStyle: { color: '#e8e2d3' } },
-      axisLabel: { color: '#a0978a', fontSize: 11, interval: 4 }
+      axisLine: { lineStyle: { color: '#eae3d7' } },
+      axisLabel: { color: '#a49a8c', fontSize: 11, interval: 4 }
     },
     yAxis: {
       type: 'value',
-      splitLine: { lineStyle: { color: '#e8e2d3' } },
-      axisLabel: { color: '#a0978a', fontSize: 11 }
+      splitLine: { lineStyle: { color: '#eae3d7' } },
+      axisLabel: { color: '#a49a8c', fontSize: 11 }
     },
     series: [
       {

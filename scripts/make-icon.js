@@ -7,25 +7,28 @@ const path = require('path')
 // 强制 1:1 设备缩放，保证截图尺寸精确为 1024×1024
 app.commandLine.appendSwitch('force-device-scale-factor', '1')
 
-// 小土狗头像插画（暖黄圆角底 + 奶油色狗脸）
+// 三色边牧头像插画（米白圆角底 + 黑脸 + 白鼻梁 + 棕眉点，一耳立一耳折）
 const SVG = `
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1024" height="1024" rx="232" fill="#F6C445"/>
-  <path d="M236 388 Q200 170 320 150 Q400 138 430 260 Q352 292 236 388 Z" fill="#9C6B3F"/>
-  <path d="M788 388 Q824 170 704 150 Q624 138 594 260 Q672 292 788 388 Z" fill="#9C6B3F"/>
-  <ellipse cx="512" cy="590" rx="330" ry="290" fill="#FDF1DC"/>
-  <ellipse cx="330" cy="620" rx="52" ry="34" fill="#F2A8A0" opacity="0.65"/>
-  <ellipse cx="694" cy="620" rx="52" ry="34" fill="#F2A8A0" opacity="0.65"/>
-  <ellipse cx="400" cy="520" rx="30" ry="38" fill="#3D2E1E"/>
-  <ellipse cx="624" cy="520" rx="30" ry="38" fill="#3D2E1E"/>
-  <circle cx="412" cy="506" r="10" fill="#FFFFFF"/>
-  <circle cx="636" cy="506" r="10" fill="#FFFFFF"/>
-  <ellipse cx="512" cy="660" rx="130" ry="100" fill="#FFF7E8"/>
-  <ellipse cx="512" cy="620" rx="42" ry="32" fill="#5B3A1E"/>
-  <ellipse cx="524" cy="612" rx="12" ry="8" fill="#8A6242" opacity="0.7"/>
-  <path d="M512 652 Q512 690 468 706 M512 652 Q512 690 556 706" stroke="#3D2E1E" stroke-width="14" fill="none" stroke-linecap="round"/>
-  <path d="M486 706 Q512 768 538 706 Q512 722 486 706 Z" fill="#F2788F"/>
-  <path d="M512 300 Q480 220 520 190 Q548 230 522 306 Z" fill="#9C6B3F"/>
+  <rect width="1024" height="1024" rx="232" fill="#FAF7F0"/>
+  <path d="M268 360 L232 120 L392 210 Z" fill="#2B2724"/>
+  <path d="M756 330 Q820 150 690 160 Q640 190 652 280 Q690 330 756 330 Z" fill="#2B2724"/>
+  <ellipse cx="512" cy="560" rx="300" ry="270" fill="#2B2724"/>
+  <path d="M476 310 Q488 430 496 585 L528 585 Q536 430 548 310 Q512 282 476 310 Z" fill="#FFFFFF"/>
+  <ellipse cx="402" cy="426" rx="36" ry="24" fill="#C8863A"/>
+  <ellipse cx="622" cy="426" rx="36" ry="24" fill="#C8863A"/>
+  <ellipse cx="402" cy="502" rx="50" ry="38" fill="#FFFFFF"/>
+  <ellipse cx="622" cy="502" rx="50" ry="38" fill="#FFFFFF"/>
+  <circle cx="402" cy="502" r="19" fill="#2B2724"/>
+  <circle cx="622" cy="502" r="19" fill="#2B2724"/>
+  <circle cx="409" cy="495" r="7" fill="#FFFFFF"/>
+  <circle cx="629" cy="495" r="7" fill="#FFFFFF"/>
+  <ellipse cx="512" cy="668" rx="126" ry="92" fill="#FFFFFF"/>
+  <ellipse cx="512" cy="618" rx="34" ry="26" fill="#2B2724"/>
+  <ellipse cx="520" cy="611" rx="10" ry="7" fill="#6E6257"/>
+  <path d="M512 644 Q512 682 470 696 M512 644 Q512 682 554 696" stroke="#2B2724" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <path d="M488 696 Q512 754 536 696 Q512 710 488 696 Z" fill="#E58A9A"/>
+  <path d="M398 800 Q512 858 626 800 Q512 816 398 800 Z" fill="#FFFFFF"/>
 </svg>`
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms))
