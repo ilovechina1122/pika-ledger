@@ -85,10 +85,15 @@ export interface MonthTrendRow {
   expense: number
 }
 
+// 分类 + 该分类下的记账笔数（分类管理页展示用）
+export interface CategoryWithCount extends Category {
+  txCount: number
+}
+
 // 渲染层 window.api 的完整形状（预加载脚本按此实现）
 export interface PikaApi {
   categories: {
-    list(): Promise<ApiResult<Category[]>>
+    list(): Promise<ApiResult<CategoryWithCount[]>>
     create(input: CategoryCreateInput): Promise<ApiResult<Category>>
     rename(input: CategoryRenameInput): Promise<ApiResult<Category>>
     delete(id: number): Promise<ApiResult<null>>
