@@ -13,6 +13,8 @@ win:
   target:
     - nsis
     - zip
+  icon: build/icon.ico
+  artifactName: pika-ledger-${version}-portable.${ext}
 nsis:
   oneClick: false
   perMachine: false
@@ -20,8 +22,10 @@ nsis:
   installerLanguages:
     - zh_CN
   shortcutName: 皮卡记账
+  artifactName: pika-ledger-${version}-setup.${ext}
 mac:
   target:
     - dmg
     - zip
+  icon: build/icon.png
   category: public.app-category.finance
