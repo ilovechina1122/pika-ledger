@@ -1,0 +1,27 @@
+appId: com.pika.ledger
+productName: 皮卡记账
+directories:
+  buildResources: build
+  output: dist
+files:
+  - out/**
+  - package.json
+asarUnpack:
+  - "**/*.node"
+npmRebuild: true
+win:
+  target:
+    - nsis
+    - zip
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  installerLanguages:
+    - zh_CN
+  shortcutName: 皮卡记账
+mac:
+  target:
+    - dmg
+    - zip
+  category: public.app-category.finance
