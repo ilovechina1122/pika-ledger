@@ -1,5 +1,5 @@
 import type Database from 'better-sqlite3'
-import type { RecordCreateInput } from '../../shared/ipc'
+import type { RecordCreateInput, RecordListQuery, RecordUpdateInput } from '../../shared/ipc'
 import type { TransactionRecord, TxType } from '../../shared/types'
 
 interface TxRow {
@@ -41,11 +41,7 @@ function toRecord(r: TxRow): TransactionRecord {
 }
 
 export function createTransaction(db: Database.Database, input: RecordCreateInput): TransactionRecord {
-  const cat = db
-    .prepare('SELECT type FROM categories WHERE id = ? AND is_hidden = 0')
-    .get(input.categoryId) as { type: TxType } | undefined
-  if (!cat) throw new Error('分类不存在或已被删除')
-  if (cat.type !== input.type) throw new Error('所选分类与收支类型不匹配')
+  assertCategoryUsable(db, input.categoryId, input.type)
 
   const info = db
     .prepare(
@@ -55,4 +51,100 @@ export function createTransaction(db: Database.Database, input: RecordCreateInpu
 
   const row = db.prepare(`${TX_SELECT} WHERE t.id = ?`).get(info.lastInsertRowid) as TxRow
   return toRecord(row)
+}
+
+// 账单列表：支持时间范围 / 类型 / 分类 / 备注关键词组合筛选，按日期倒序
+export function listTransactions(db: Database.Database, query: RecordListQuery): TransactionRecord[] {
+  const conds: string[] = []
+  const params: unknown[] = []
+
+  if (query.startDate) {
+    conds.push('t.date >= ?')
+    params.push(query.startDate)
+  }
+  if (query.endDate) {
+    conds.push('t.date <= ?')
+    params.push(query.endDate)
+  }
+  if (query.type) {
+    conds.push('t.type = ?')
+    params.push(query.type)
+  }
+  if (query.categoryId) {
+    // 选一级大类时，自动包含它下面的全部小类
+    const cat = db
+      .prepare('SELECT parent_id FROM categories WHERE id = ?')
+      .get(query.categoryId) as { parent_id: number | null } | undefined
+    if (cat && cat.parent_id === null) {
+      conds.push('(t.category_id = ? OR c.parent_id = ?)')
+      params.push(query.categoryId, query.categoryId)
+    } else {
+      conds.push('t.category_id = ?')
+      params.push(query.categoryId)
+    }
+  }
+  if (query.noteKeyword) {
+    conds.push('t.note LIKE ?')
+    params.push(`%${query.noteKeyword}%`)
+  }
+
+  const where = conds.length > 0 ? `WHERE ${conds.join(' AND ')}` : ''
+  const rows = db.prepare(`${TX_SELECT} ${where} ORDER BY t.date DESC, t.id DESC`).all(...params) as TxRow[]
+  return rows.map(toRecord)
+}
+
+export function updateTransaction(db: Database.Database, input: RecordUpdateInput): TransactionRecord {
+  const existing = db.prepare('SELECT id FROM transactions WHERE id = ?').get(input.id)
+  if (!existing) throw new Error('记录不存在')
+
+  // 更换分类时校验分类有效且与类型匹配
+  if (input.categoryId !== undefined) {
+    const currentType = input.type ?? (
+      db.prepare('SELECT type FROM transactions WHERE id = ?').get(input.id) as { type: TxType }
+    ).type
+    assertCategoryUsable(db, input.categoryId, currentType)
+  }
+
+  const sets: string[] = []
+  const params: unknown[] = []
+  if (input.amountCents !== undefined) {
+    sets.push('amount_cents = ?')
+    params.push(input.amountCents)
+  }
+  if (input.type !== undefined) {
+    sets.push('type = ?')
+    params.push(input.type)
+  }
+  if (input.categoryId !== undefined) {
+    sets.push('category_id = ?')
+    params.push(input.categoryId)
+  }
+  if (input.date !== undefined) {
+    sets.push('date = ?')
+    params.push(input.date)
+  }
+  if (input.note !== undefined) {
+    sets.push('note = ?')
+    params.push(input.note)
+  }
+  if (sets.length === 0) throw new Error('没有需要修改的内容')
+  sets.push("updated_at = datetime('now','localtime')")
+
+  db.prepare(`UPDATE transactions SET ${sets.join(', ')} WHERE id = ?`).run(...params, input.id)
+
+  const row = db.prepare(`${TX_SELECT} WHERE t.id = ?`).get(input.id) as TxRow
+  return toRecord(row)
+}
+
+export function deleteTransaction(db: Database.Database, id: number): void {
+  const info = db.prepare('DELETE FROM transactions WHERE id = ?').run(id)
+  if (info.changes === 0) throw new Error('记录不存在')
+}
+
+function assertCategoryUsable(db: Database.Database, categoryId: number, type: TxType): void {
+  const cat = db
+    .prepare('SELECT type FROM categories WHERE id = ? AND is_hidden = 0')
+    .get(categoryId) as { type: TxType } | undefined
+  if (!cat) throw new Error('分类不存在或已被删除')
+  if (cat.type !== type) throw new Error('所选分类与收支类型不匹配')
 }
