@@ -6,8 +6,12 @@ import { registerAllIpcHandlers } from './ipc'
 const isDev = !app.isPackaged
 
 // 统一数据目录：开发版与安装版使用同一位置（避免数据分裂），
-// 固定在英文路径（AppData/pika-ledger），与项目文件夹无关
-app.setPath('userData', join(app.getPath('appData'), 'pika-ledger'))
+// 固定在英文路径（AppData/pika-ledger），与项目文件夹无关；
+// 可用 PIKA_DATA_DIR 环境变量覆盖（用于隔离测试，如验证全新安装流程）
+app.setPath(
+  'userData',
+  process.env.PIKA_DATA_DIR || join(app.getPath('appData'), 'pika-ledger')
+)
 
 // 单实例锁：防止同时开两个窗口写坏数据
 const gotLock = app.requestSingleInstanceLock()
